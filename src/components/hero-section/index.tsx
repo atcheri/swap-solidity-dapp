@@ -1,12 +1,13 @@
 "use client";
 
+import { SettingsIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 import images from "@/assets";
 
 import SearchToken from "../search-token";
-import Token from "../token";
+import TokenSettings from "../token-settings";
 import { Button } from "../ui/button";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "../ui/item";
 
@@ -39,6 +40,9 @@ const HeroSection = () => {
     <>
       <div className="flex items-center justify-center pt-20">
         <div className="bg-secondary/50 flex max-w-xs min-w-sm flex-col gap-4 rounded-2xl p-6 shadow-lg">
+          {/* Token Settings Modal */}
+          <TokenSettings />
+
           <Item variant="outline">
             <ItemMedia>
               <Image
@@ -92,9 +96,6 @@ const HeroSection = () => {
           )}
         </div>
       </div>
-
-      {/* Settings Modal */}
-      {isSettingOpened && <Token />}
 
       {/* Token From Modal */}
       {isTokenFromOpened && (

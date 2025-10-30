@@ -18,7 +18,6 @@ import {
 import Modal from "../modal";
 import ThemeToggle from "../theme-provider/theme-toggle";
 import TokenList from "../token-list";
-import { Button } from "../ui/button";
 
 const Navbar = () => {
   const items = [
@@ -27,7 +26,6 @@ const Navbar = () => {
     { name: "Pools", link: "/pools" },
   ];
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
   const [isTokenBoxOpened, setIsTokenBoxOpened] = useState(false);
 
   return (
@@ -68,16 +66,13 @@ const Navbar = () => {
 
         <ThemeToggle />
 
-        <Button
-          onClick={() => setIsModalOpened(true)}
-          className="bg-accent hover:bg-accent/80 border-border flex items-center rounded-xl border px-4 py-2 text-sm font-medium transition-colors"
-        >
-          Address
-        </Button>
+        {/* Address Modal */}
+        <Modal
+          connectWallet={() => {
+            console.log("connecting to wallet...");
+          }}
+        />
       </div>
-
-      {/* Modals */}
-      {isModalOpened && <Modal setIsModalOpened={setIsModalOpened} connectWallet="Connect" />}
 
       {isTokenBoxOpened && <TokenList setIsTokenBoxOpened={setIsTokenBoxOpened} tokenData="data" />}
     </nav>

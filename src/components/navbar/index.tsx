@@ -26,8 +26,6 @@ const Navbar = () => {
     { name: "Pools", link: "/pools" },
   ];
 
-  const [isTokenBoxOpened, setIsTokenBoxOpened] = useState(false);
-
   return (
     <nav className="bg-background border-border flex w-full items-center justify-between border-b px-6 py-4">
       {/* Logo and Navigation Items */}
@@ -74,7 +72,8 @@ const Navbar = () => {
         />
       </div>
 
-      {isTokenBoxOpened && <TokenList setIsTokenBoxOpened={setIsTokenBoxOpened} tokenData="data" />}
+      {/* Token List */}
+      <TokenList tokenData="data" />
     </nav>
   );
 };

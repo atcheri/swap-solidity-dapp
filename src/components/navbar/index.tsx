@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import Modal from "../modal";
+import ThemeToggle from "../theme-provider/theme-toggle";
 import TokenList from "../token-list";
 import { Button } from "../ui/button";
 
@@ -64,6 +65,8 @@ const Navbar = () => {
           <Image src={images.ether} alt="Network" width={20} height={20} />
           <span className="text-sm font-medium">Network Name</span>
         </button>
+
+        <ThemeToggle />
 
         <Button
           onClick={() => setIsModalOpened(true)}

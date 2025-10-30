@@ -1,16 +1,8 @@
 import { BitcoinIcon } from "lucide-react";
-import { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
+import { FC, PropsWithChildren } from "react";
 
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "../ui/item";
 import { Separator } from "../ui/separator";
 
@@ -23,9 +15,6 @@ const TokenList: FC<PropsWithChildren<TokenListProps>> = () => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Address</Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Connect a Wallet</DialogTitle>

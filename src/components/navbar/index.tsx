@@ -70,10 +70,10 @@ const Navbar = () => {
             console.log("connecting to wallet...");
           }}
         />
-      </div>
 
-      {/* Token List */}
-      <TokenList tokenData="data" />
+        {/* Token List */}
+        <TokenList tokenData="data" />
+      </div>
     </nav>
   );
 };

@@ -1,29 +1,60 @@
-import { BitcoinIcon } from "lucide-react";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 
-import { coins } from "@/data/coins";
-
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Item, ItemContent, ItemDescription } from "@/components/ui/item";
+import { Coin } from "@/domain/models/coin";
 
 type SearchTokenProps = {
-  token?: {
-    name: string;
-    symbol: string;
-    image: string;
-  };
+  coins: Coin[];
 };
 
-const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = () => {
+const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coins }) => {
+  const [selectedCoin, setSelectedCoin] = useState<Coin>(coins[0]);
+
+  const handleSelectedCoin = (coin: Coin) => {
+    setSelectedCoin(coin);
+  };
+
   return (
-    <div>
-      Select a Token
-      {coins.map(({ symbol, Icon }, index) => (
-        <Button key={index} variant="outline" size="sm">
-          {Icon ? <Icon width={32} height={32} /> : <BitcoinIcon width={32} height={32} />}
-          {symbol}
-        </Button>
-      ))}
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Select a Token</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-wrap gap-2">
+          {coins.map((coin, index) => (
+            <Button className="min-w-28" variant="outline" key={index} onClick={() => handleSelectedCoin(coin)}>
+              <coin.Icon width={16} height={16} className="mr-2" />
+              {coin.symbol}
+            </Button>
+          ))}
+        </div>
+        {selectedCoin.description && (
+          <Item variant="outline">
+            <ItemContent>
+              <ItemDescription>{selectedCoin.description}</ItemDescription>
+            </ItemContent>
+          </Item>
+        )}
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 

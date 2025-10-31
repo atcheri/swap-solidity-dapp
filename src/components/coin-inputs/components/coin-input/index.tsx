@@ -4,6 +4,7 @@ import { FC, PropsWithChildren, useState } from "react";
 import SearchToken from "@/components/search-token";
 import { Button } from "@/components/ui/button";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
+import { coins } from "@/data/coins";
 import { Coin } from "@/domain/models/coin";
 
 type CoinInputProps = {
@@ -12,8 +13,6 @@ type CoinInputProps = {
 };
 
 const CoinInput: FC<PropsWithChildren<CoinInputProps>> = ({ amount, coin }) => {
-  const [isTokenFromOpened, setIsTokenFromOpened] = useState(false);
-
   return (
     <>
       <Item variant="outline">
@@ -27,22 +26,22 @@ const CoinInput: FC<PropsWithChildren<CoinInputProps>> = ({ amount, coin }) => {
           </ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Button onClick={() => setIsTokenFromOpened((p) => !p)} size="lg" variant="outline">
-            <coin.Icon width={16} height={16} />
-            {coin.symbol}
-            <ChevronDownIcon width={16} height={16} />
-          </Button>
+          <SearchToken
+            coins={coins}
+            // token={}
+            // isTokenFromOpened={isTokenFromOpened}
+            // setIsTokenFromOpened={setIsTokenFromOpened}
+            // setTokenFrom={setTokenFrom}
+          >
+            <Button size="lg" variant="outline">
+              <coin.Icon width={16} height={16} />
+              {coin.symbol}
+              <ChevronDownIcon width={16} height={16} />
+            </Button>
+          </SearchToken>
         </ItemActions>
       </Item>
       {/* Token From Modal */}
-      {isTokenFromOpened && (
-        <SearchToken
-        // token={}
-        // isTokenFromOpened={isTokenFromOpened}
-        // setIsTokenFromOpened={setIsTokenFromOpened}
-        // setTokenFrom={setTokenFrom}
-        />
-      )}
     </>
   );
 };

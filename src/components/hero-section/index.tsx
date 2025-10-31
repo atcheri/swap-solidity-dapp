@@ -1,10 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
-import { ethCoin, usdtCoin } from "@/data/coins";
-import { Coin } from "@/domain/models/coin";
-
 import FromCoin from "../coin-inputs/components/from-coin";
 import ToCoin from "../coin-inputs/components/to-coin";
 import TokenSettings from "../token-settings";
@@ -14,8 +9,10 @@ const HeroSection = () => {
   const accounts = "some fake one";
   const fromAmount = 1234;
   const toAmount = 5678;
-  const [fromCoin, setFromCoin] = useState<Coin>(ethCoin);
-  const [toCoin, setToCoin] = useState<Coin>(usdtCoin);
+
+  const handleSwap = () => {
+    console.log("swapping...");
+  };
 
   const connectWallet = () => {
     console.log("connecting to wallet...");
@@ -31,7 +28,7 @@ const HeroSection = () => {
           <FromCoin amount={fromAmount} />
           <ToCoin amount={toAmount} />
           {accounts ? (
-            <Button className="rounded-3xl" onClick={() => {}} size="lg">
+            <Button className="rounded-3xl" onClick={handleSwap} size="lg">
               Swap
             </Button>
           ) : (

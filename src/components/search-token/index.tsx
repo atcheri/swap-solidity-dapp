@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,14 +15,20 @@ import { Item, ItemContent, ItemDescription } from "@/components/ui/item";
 import { Coin } from "@/domain/models/coin";
 
 type SearchTokenProps = {
+  coin: Coin;
   coins: Coin[];
+  onCoinSelect: (coin: Coin) => void;
 };
 
-const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coins }) => {
-  const [selectedCoin, setSelectedCoin] = useState<Coin>(coins[0]);
+const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coin, coins, onCoinSelect }) => {
+  const [selectedCoin, setSelectedCoin] = useState<Coin>(coin || coins[0]);
 
   const handleSelectedCoin = (coin: Coin) => {
     setSelectedCoin(coin);
+  };
+
+  const handleValidate = () => {
+    onCoinSelect(selectedCoin);
   };
 
   return (
@@ -30,14 +37,24 @@ const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coins 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Select a Token</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
         <div className="flex flex-wrap gap-2">
-          {coins.map((coin, index) => (
-            <Button className="min-w-28" variant="outline" key={index} onClick={() => handleSelectedCoin(coin)}>
-              <coin.Icon width={16} height={16} className="mr-2" />
-              {coin.symbol}
-            </Button>
-          ))}
+          {coins.map((c, index) => {
+            const isCurrentCoin = c.symbol === selectedCoin.symbol;
+
+            return (
+              <Button
+                className="min-w-28"
+                variant={isCurrentCoin ? "default" : "outline"}
+                key={index}
+                onClick={() => handleSelectedCoin(c)}
+              >
+                <c.Icon width={16} height={16} className="mr-2" />
+                {c.symbol}
+              </Button>
+            );
+          })}
         </div>
         {selectedCoin.description && (
           <Item variant="outline">
@@ -50,6 +67,11 @@ const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coins 
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Close
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button onClick={handleValidate} type="button">
+              Validate
             </Button>
           </DialogClose>
         </DialogFooter>

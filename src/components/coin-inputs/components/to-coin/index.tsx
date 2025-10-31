@@ -1,15 +1,18 @@
+import { useAtom } from "jotai";
 import { FC, PropsWithChildren } from "react";
 
-import { Coin } from "@/domain/models/coin";
+import { toCoinAtom } from "@/state/coins";
 
 import CoinInput from "../coin-input";
 
 type ToCoinProps = {
   amount: number;
-  coin: Coin;
 };
 
-const ToCoin: FC<PropsWithChildren<ToCoinProps>> = ({ amount, coin }) => {
+const ToCoin: FC<PropsWithChildren<ToCoinProps>> = ({ amount }) => {
+  const coinAtom = useAtom(toCoinAtom);
+  const coin = coinAtom[0];
+
   return <CoinInput amount={amount} coin={coin} />;
 };
 

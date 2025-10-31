@@ -28,8 +28,8 @@ const HeroSection = () => {
           {/* Token Settings Modal */}
           <TokenSettings />
 
-          <FromCoin amount={fromAmount} coin={fromCoin} />
-          <ToCoin amount={toAmount} coin={toCoin} />
+          <FromCoin amount={fromAmount} />
+          <ToCoin amount={toAmount} />
           {accounts ? (
             <Button className="rounded-3xl" onClick={() => {}} size="lg">
               Swap

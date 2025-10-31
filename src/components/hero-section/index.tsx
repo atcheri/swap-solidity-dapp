@@ -1,40 +1,25 @@
 "use client";
 
-import { SettingsIcon } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 
-import images from "@/assets";
+import { ethCoin, usdtCoin } from "@/data/coins";
+import { Coin } from "@/domain/models/coin";
 
-import SearchToken from "../search-token";
+import FromCoin from "../coin-inputs/components/from-coin";
+import ToCoin from "../coin-inputs/components/to-coin";
 import TokenSettings from "../token-settings";
 import { Button } from "../ui/button";
-import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "../ui/item";
 
 const HeroSection = () => {
   const accounts = "some fake one";
   const fromAmount = 1234;
   const toAmount = 5678;
-  const [isSettingOpened, setIsSettingOpened] = useState(false);
-  const [isTokenFromOpened, setIsTokenFromOpened] = useState(false);
-  const [isTokenToOpened, setIsTokenToOpened] = useState(false);
+  const [fromCoin, setFromCoin] = useState<Coin>(ethCoin);
+  const [toCoin, setToCoin] = useState<Coin>(usdtCoin);
 
   const connectWallet = () => {
     console.log("connecting to wallet...");
   };
-
-  // First from
-  const [tokenFrom, setTokenFrom] = useState({
-    name: "Ethereum",
-    symbol: "ETH",
-    image: "",
-  });
-  // Then to
-  const [tokenTo, setTokenTo] = useState({
-    name: "Uniswap",
-    symbol: "UNI",
-    image: "",
-  });
 
   return (
     <>
@@ -43,48 +28,8 @@ const HeroSection = () => {
           {/* Token Settings Modal */}
           <TokenSettings />
 
-          <Item variant="outline">
-            <ItemMedia>
-              <Image
-                src={tokenFrom.image || images.etherlogo}
-                alt={tokenFrom.name}
-                width={32}
-                height={32}
-                className="object-cover grayscale"
-              />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>{tokenFrom.name}</ItemTitle>
-              <ItemDescription>
-                {fromAmount} {tokenFrom.symbol}
-              </ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <Button size="sm" variant="outline">
-                Invite
-              </Button>
-            </ItemActions>
-          </Item>
-          <Item variant="outline">
-            <ItemMedia>
-              <Image
-                src={tokenFrom.image || images.etherlogo}
-                alt={tokenFrom.name}
-                width={32}
-                height={32}
-                className="object-cover grayscale"
-              />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>{tokenFrom.name}</ItemTitle>
-              <ItemDescription>
-                {toAmount} {tokenTo.symbol}
-              </ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <Button onClick={() => setIsTokenFromOpened(true)} size="sm" variant="outline"></Button>
-            </ItemActions>
-          </Item>
+          <FromCoin amount={fromAmount} coin={fromCoin} />
+          <ToCoin amount={toAmount} coin={toCoin} />
           {accounts ? (
             <Button className="rounded-3xl" onClick={() => {}} size="lg">
               Swap
@@ -96,25 +41,6 @@ const HeroSection = () => {
           )}
         </div>
       </div>
-
-      {/* Token From Modal */}
-      {isTokenFromOpened && (
-        <SearchToken
-          token={tokenFrom}
-          // isTokenFromOpened={isTokenFromOpened}
-          // setIsTokenFromOpened={setIsTokenFromOpened}
-          // setTokenFrom={setTokenFrom}
-        />
-      )}
-      {/* Token To Modal */}
-      {isTokenToOpened && (
-        <SearchToken
-          token={tokenTo}
-          // isTokenToOpened={isTokenToOpened}
-          // setIsTokenToOpened={setIsTokenToOpened}
-          // setTokenTo={setTokenTo}
-        />
-      )}
     </>
   );
 };

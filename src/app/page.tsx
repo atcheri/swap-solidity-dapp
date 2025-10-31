@@ -1,9 +1,5 @@
-import HeroSection from "@/components/hero-section";
+import Swap from "./swap/page";
 
-export default function Swap() {
-  return (
-    <>
-      <HeroSection />
-    </>
-  );
+export default function Home() {
+  return <Swap />;
 }

@@ -10,10 +10,11 @@ import { Coin } from "@/domain/models/coin";
 type CoinInputProps = {
   amount: number;
   coin: Coin;
+  otherCoin: Coin;
   onCoinSelect: (coin: Coin) => void;
 };
 
-const CoinInput: FC<PropsWithChildren<CoinInputProps>> = ({ amount, coin, onCoinSelect }) => {
+const CoinInput: FC<PropsWithChildren<CoinInputProps>> = ({ amount, coin, otherCoin, onCoinSelect }) => {
   return (
     <>
       <Item variant="outline">
@@ -30,6 +31,7 @@ const CoinInput: FC<PropsWithChildren<CoinInputProps>> = ({ amount, coin, onCoin
           <SearchToken
             coin={coin}
             coins={coins}
+            otherCoin={otherCoin}
             onCoinSelect={onCoinSelect}
             // token={}
             // isTokenFromOpened={isTokenFromOpened}

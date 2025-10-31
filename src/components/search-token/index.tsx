@@ -17,10 +17,11 @@ import { Coin } from "@/domain/models/coin";
 type SearchTokenProps = {
   coin: Coin;
   coins: Coin[];
+  otherCoin: Coin;
   onCoinSelect: (coin: Coin) => void;
 };
 
-const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coin, coins, onCoinSelect }) => {
+const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coin, coins, otherCoin, onCoinSelect }) => {
   const [selectedCoin, setSelectedCoin] = useState<Coin>(coin || coins[0]);
 
   const handleSelectedCoin = (coin: Coin) => {
@@ -42,12 +43,14 @@ const SearchToken: FC<PropsWithChildren<SearchTokenProps>> = ({ children, coin, 
         <div className="flex flex-wrap gap-2">
           {coins.map((c, index) => {
             const isCurrentCoin = c.symbol === selectedCoin.symbol;
+            const disabled = c.symbol === otherCoin.symbol;
 
             return (
               <Button
                 className="min-w-28"
                 variant={isCurrentCoin ? "default" : "outline"}
                 key={index}
+                disabled={disabled}
                 onClick={() => handleSelectedCoin(c)}
               >
                 <c.Icon width={16} height={16} className="mr-2" />

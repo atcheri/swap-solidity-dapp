@@ -16,6 +16,8 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.6",
+    "@uniswap/v3-core": "^1.0.1",
+    "@uniswap/v3-periphery": "^1.4.4",
     "@web3icons/react": "^4.0.29",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
